@@ -1,16 +1,9 @@
 = block_with_caption :top, :class=>'table-block'
   table [
-      class=["frame-#{attr :frame, 'all'}", "grid-#{attr :grid, 'all'}", stretch?, ("stripes-#{attr :stripes}" if attr? :stripes)]
-      style=style_value(width: ("#{attr :tablepcwidth}%" if !autowidth? && !stretch? || (local_attr :width)),
+      class=["frame-#{attr :frame, 'all'}", "grid-#{attr :grid, 'all'}", spread?]
+      style=style_value(width: ("#{attr :tablepcwidth}%" if !autowidth? && !spread? || (local_attr :width)),
                         float: (attr :float)) ]
     - unless (attr :rowcount).zero?
-      colgroup
-        - if autowidth?
-          - columns.each do
-            col
-        - else
-          - columns.each do |col|
-            col style=style_value(width: ("#{col.attr :colpcwidth}%" if !autowidth? col))
       - [:head, :foot, :body].reject { |tblsec| rows[tblsec].empty? }.each do |tblsec|
         <t#{tblsec}>
           - rows[tblsec].each do |row|
@@ -27,12 +20,14 @@
                     - case cell.style
                     - when :asciidoc
                       =cell.content
+                    - when :verse
+                      .verse: pre =cell.text
                     - when :literal
                       .literal: pre =cell.text
                     - else
-                      - if (content = cell.content).one?
-                        =content.first
+                      - if cell.content.one?
+                        =cell.content.first
                       - else
-                        - content.each do |text|
+                        - cell.content.each do |text|
                           p =text
         </t#{tblsec}>

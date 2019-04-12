@@ -25,4 +25,12 @@ module Asciidoctor::Html5s
       end
     end
   end
+
+  class RemoveListingSubsTreeprocessor < ::Asciidoctor::Extensions::Treeprocessor
+    def process(document)
+      document.find_by(context: :listing) do |block|
+        block.subs.clear
+      end
+    end
+  end
 end
