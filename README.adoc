@@ -16,6 +16,10 @@ This project was forked from https://github.com/jirutka/asciidoctor-html5s and s
 
 [source, sh, subs="+attributes"]
 ----
+bundle install # Installs to vendor/
+
+bundle exec rake build
+
 bundle exec asciidoctor FILE.adoc \
   -r asciidoctor-html5s -b html5s -a htmlsyntax=xml \
   -a icons=font -a doctype=book -a toc -a toclevels=3 \
