@@ -1,7 +1,7 @@
 = block_with_caption :top, :class=>'table-block'
   table [
-      class=["frame-#{attr :frame, 'all'}", "grid-#{attr :grid, 'all'}", spread?]
-      style=style_value(width: ("#{attr :tablepcwidth}%" if !autowidth? && !spread? || (local_attr :width)),
+      class=["frame-#{attr :frame, 'all'}", "grid-#{attr :grid, 'all'}", stretch?]
+      style=style_value(width: ("#{attr :tablepcwidth}%" if !autowidth? && !stretch? || (local_attr :width)),
                         float: (attr :float)) ]
     - unless (attr :rowcount).zero?
       - [:head, :foot, :body].reject { |tblsec| rows[tblsec].empty? }.each do |tblsec|
